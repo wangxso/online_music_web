@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <title>简单音乐登录/注册</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script type="text/javascript" src="../static/plugins/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="../static/js/base.js"></script>
+    <script type="text/javascript" src="../static/js/service/userService.js"></script>
+    <script type="text/javascript" src="../static/js/controller/userController.js"></script>
+</head>
+<body ng-app="eazymusic" ng-controller="userController">
+<!--背景-->
+<div class="wel" id="background-3"></div>
+<!--左右两边云-->
+<div class="wel" id="box">
+    <div class="box-1 lefp"></div>
+    <div class="box-1">
+        <div class="righp"></div>
+    </div>
+</div>
+<!--荧光点点-->
+<div class="wel" id="git"></div>
+<!--登录注册表-->
+<div class="wel" id="from">
+    <div class="box-2 le-1">
+        <form action="/user/login" method="post">
+            <div class="flrg">
+                <h3>登录</h3>
+                <div class="a">
+                    <!--<label>账号：</label>-->
+                    <input type="text" class="in-1" name="name" placeholder="请输入账号">
+                </div>
+                <div class="a">
+                    <!--<label>密码：</label>-->
+                    <input type="password" class="in-1" name="password" placeholder="请输入密码">
+                </div>
+                <div class="a">
+                    <button type="submit">登录</button>
+                </div>
+                <div class="a">
+                    <div class="hr"></div>
+                </div>
+                <div class="a">
+                    <a href="#">忘记密码？</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="box-2 le-2">
+        <form action="" method="post">
+            <div class="flrg-1">
+                <h3>注册</h3>
+                <div class="a">
+                    <input type="text" class="in-1" ng-model="entity.nickName" placeholder="您的用户名">
+                </div>
+                <div class="a">
+                    <input type="password" class="in-1" ng-model="entity.password" placeholder="输入密码">
+                </div>
+                <div class="a">
+                    <input type="password" class="in-1" ng-model="password" placeholder="再次确认密码">
+                </div>
+                <div class="a">
+                    <input type="text" class="in-1" ng-model="entity.phone" placeholder="输入手机号码">
+                </div>
+                <div class="a">
+                    <input type="email" class="in-1" ng-model="entity.email" placeholder="输入邮箱地址">
+                </div>
+                <div class="a">
+                    <button type="button" ng-click="save()">注册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

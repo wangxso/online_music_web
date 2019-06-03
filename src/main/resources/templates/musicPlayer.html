@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>简单音乐</title>
+<meta charset="utf-8">
+
+	<link rel="stylesheet" type="text/css" href="../static/css/music.css">
+
+	<script type="text/javascript" src="../static/plugins/angularjs/angular.min.js"></script>
+	<script type="text/javascript" src="../static/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript" src="js/music.js"></script>
+	<script type="text/javascript" src="../static/js/base.js"></script>
+	<script type="text/javascript" src="../static/js/service/musicService.js"></script>
+	<script type="text/javascript" src="../static/js/controller/musicController.js"></script>
+	<script type="text/javascript" src="../static/js/lrc-file-parser.min.js"></script>
+	<script src="../static/js/base64-min.js"></script>
+
+</head>
+<body ng-app="eazymusic" ng-controller="musicController" ng-init="findOneMusic(1305345331);getLyc(1305345331)">
+<div id="music">
+	<div id="container">
+		<h3 id="musicName">{{entity.name}}</h3>
+		<img src="https://api.mlwei.com/music/api/wy/?key=523077333&cache=1&type=pic&id=1305345331" id="musicImg">
+		<audio src="{{msrc}}" controls id="audio"></audio>
+		<div class="btn">
+			<button id="play">play</button>
+			<button id="pause">pause</button>
+			<button id="prev">prev</button>
+			<button id="next">next</button>
+		</div>
+	</div>
+	<div id="bg"></div>
+	<div id="lyric"></div>
+</div>
+<iframe src="https://api.mlwei.com/music/play/?id=3641614987&type=songlist&autoplay=true" width="100%" height="300" frameborder="0>
+
+</body>
+<script>
+	var encodeLrc=Base64.encode("[00:00.000] 作曲 : 无\n" +
+			"[00:00.005] 作词 : 无\n" +
+			"[00:00.17]想要和你谈恋爱\n" +
+			"[00:01.82]作词：潘攀\n" +
+			"[00:02.08]作曲：潘攀\n" +
+			"[00:03.29]编曲：尤起胜\n" +
+			"[00:03.45]录音：郭延跃\n" +
+			"[00:03.70]吉他：田超\n" +
+			"[00:03.96]缩混：田超\n" +
+			"[00:04.74]制作人：潘攀\n" +
+			"[00:20.67]第一次见你 微妙的感觉\n" +
+			"[00:25.25]空气都凝结 心慌乱跳跃\n" +
+			"[00:29.86]微风在摇曳 甜蜜的季节\n" +
+			"[00:34.46]你缓缓走来 我无法拒绝\n" +
+			"[00:38.05]我想要和你谈恋爱\n" +
+			"[00:40.61]这算不算表白\n" +
+			"[00:42.70]想要拉着你的手\n" +
+			"[00:45.59]再也不放开\n" +
+			"[00:47.41]我想要和你谈恋爱\n" +
+			"[00:49.87]我不想在等待\n" +
+			"[00:51.86]想要和你去看海\n" +
+			"[00:54.37]看花谢花开\n" +
+			"[00:56.99]嗒 嗒嗒 嗒嗒嗒嗒嗒嗒嗒\n" +
+			"[01:01.82]嗒 嗒嗒 嗒嗒嗒嗒嗒\n" +
+			"[01:06.37]嗒 嗒嗒 嗒嗒嗒嗒嗒嗒嗒\n" +
+			"[01:10.94]嗒 嗒嗒 嗒嗒嗒嗒嗒\n" +
+			"[01:34.56]第一次见你 微妙的感觉\n" +
+			"[01:39.12]空气都凝结 心慌乱跳跃\n" +
+			"[01:43.14]微风在摇曳 甜蜜的季节\n" +
+			"[01:48.35]你缓缓走来 我无法拒绝\n" +
+			"[01:51.94]我想要和你谈恋爱\n" +
+			"[01:54.55]这算不算表白\n" +
+			"[01:56.44]想要拉着你的手\n" +
+			"[01:58.90]再也不放开\n" +
+			"[02:01.16]我想要和你谈恋爱\n" +
+			"[02:03.66]我不想在等待\n" +
+			"[02:05.70]想要和你去看海\n" +
+			"[02:08.21]看花谢花开\n" +
+			"[02:28.95]我想要和你谈恋爱\n" +
+			"[02:31.45]这算不算表白\n" +
+			"[02:33.44]想要拉着你的手\n" +
+			"[02:35.96]再也不放开\n" +
+			"[02:38.06]我想要和你谈恋爱\n" +
+			"[02:40.61]我不想在等待\n" +
+			"[02:42.60]想要和你去看海\n" +
+			"[02:45.21]看花谢花开\n" +
+			"[02:47.42]嗒 嗒嗒 嗒嗒嗒嗒嗒嗒嗒\n" +
+			"[02:52.41]嗒 嗒嗒 嗒嗒嗒嗒嗒\n" +
+			"[02:56.92]嗒 嗒嗒 嗒嗒嗒嗒嗒嗒嗒\n" +
+			"[03:01.64]嗒 嗒嗒 嗒嗒嗒嗒嗒");
+	var b64DecodeUnicode = function (str) {
+		return decodeURIComponent(atob(str).split('').map(function (c) {
+			return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+		}).join(''))
+	}
+	var dom_audio = document.getElementById('audio'),
+			dom_lyric = document.getElementById('lyric')
+	var lrc = new Lyric({
+		onPlay: function (line, text) {
+			console.log(line, text)
+			// console.log(lrc.lines[lrc.curLineNum].time - lrc.offset - dom_audio.currentTime * 1000)
+			dom_lyric.innerHTML = text
+		},
+		onSetLyric: function (lines) {
+			console.log(lines)
+		}
+	});
+	lrc.setLyric(b64DecodeUnicode(encodeLrc))
+	dom_audio.onplay = function () {
+		lrc.play(dom_audio.currentTime * 1000)
+	};
+	dom_audio.onpause = function () {
+		lrc.pause()
+	}
+	// dom_audio.ontimeupdate = function () {
+	//   console.log(dom_audio.currentTime * 1000)
+	// }
+</script>
+</html>

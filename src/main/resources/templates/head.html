@@ -1,0 +1,41 @@
+
+    <!--顶部bar 开始-->
+<div id="header">
+    <div id="headCont">
+
+        <audio id="audioPlayer"></audio>
+        <!--二级导航-->
+        <nav class="sub_nav">
+            <div class="nav_list">
+                <ul>
+                    <li>
+                        <a href="" class="smallogo">
+                            <span class="mini_logo"></span>
+                        </a>
+                    </li>
+                    <li><a href="" class="home"></a></li>
+
+                    <div class="sub_list" id="sub_list">
+                        <p class="active">
+                            <a href="?cat=9">That music dwells in my mind.</a>
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-default" aria-label="Left Align">
+                        <a href="login.html"><span class="glyphicon glyphicon-user" aria-hidden="true">
+                            <p ng-if="isLogin==true">{{loginUser.nickName}}</p>
+                            <p ng-if="isLogin==false">登录/注册</p>
+                            <div id="lyric"></div>
+                            </span></a>
+                    </button>
+                    <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="loginOut()">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true">
+                            <p ng-if="isLogin==true">注销</p>
+                        </span>
+                    </button>
+                    搜索<input ng-model="keyword" type="text"><input type="button" value="搜索" ng-click="searchMusic()">
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!--头部导航  结束-->
+</div>

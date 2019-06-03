@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="stylesheet" href="../static/css/musicDetail.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/player.css" />
+    </head>
+    <body ng-app="eazymusic" ng-controller="musicController" ng-init="searchMusicById();findAllMusic()">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="header">
+            <div id="headCont">
+        
+                <audio id="audioPlayer"></audio>
+                <!--二级导航-->
+                <nav class="sub_nav">
+                    <div class="nav_list">
+                        <ul>
+                            <li>
+                                <a href="" class="smallogo">
+                                    <span class="mini_logo"></span>
+                                </a>
+                            </li>
+                            <li><a href="" class="home"></a></li>
+        
+                            <div class="sub_list" id="sub_list">
+                                <p class="active">
+                                    <a href="index">That music dwells in my mind.</a>
+                                </p>
+                            </div>
+                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                <a href="login.html"><span class="glyphicon glyphicon-user" aria-hidden="true">
+                                    <span th:text="${name}"></span>
+                                    </span></a>
+                            </button>
+                            <a href="/logout">
+                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-log-in" aria-hidden="true">
+                                </span>
+                                </button>
+                            </a>
+        
+                            搜索<input ng-model="keyword" type="text"><input type="button" value="搜索" ng-click="searchMusic()">
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!--头部导航  结束-->
+        </div>
+
+        <!-- 歌曲详情开始 -->
+        <div class="panel panel-default">
+           
+            <div class="panel-heading">{{entity.name}}</div>
+            <div class="panel-body"> 
+                <img id="song-img" src="https://api.mlwei.com/music/api/wy/?key=523077333&cache=1&type=pic&id={{musicId}}">
+                 <h1 id="song-name">歌曲名:{{entity.name}}</h1>
+                 <h2 class="words">歌手:<a href="void()">{{entity.author}}</a></h2>
+                 <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="addToList(musicId)">
+                        播放<span class="glyphicon glyphicon-play-circle"  aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-default" aria-label="Left Aligin">
+                    下载<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-default" aria-label="Left Aligin">
+                        评论<span class="glyphicon glyphicon-comment" aria-hidden="true"><a href="#editor"></a> </span>{{entity.commentList.length}}
+                    </button>
+                <div class="panel-body" id="lrc-content"> 
+
+                    </div>
+                    </div>
+            </div>
+          </div>
+          <!-- 歌曲详情结束 -->
+
+        <!-- 评论 编辑器驾驶-->
+        <div class="panel panel-default">
+           
+                <div class="panel-heading">评论</div>
+                <div class="panel-body">
+                        <div id="editor">
+                        </div>
+                        <button id="btn1" ng-click="addComment(musicId);searchMusicById();">评论</button>
+                        <span>-------------------------------------------------------------------</span>
+                        <!-- 评论显示区域开始 -->
+                        <h2 class="words">精彩评论:</h2>
+                 <ul class="list-group" id="comment">
+                        <li class="list-group-item" ng-repeat="comment in entity.commentList"><p ng-bind-html="comment.comment"></p>    ----by    {{nickNameById[comment.userId]}}</li>
+                </ul>
+                        <!-- 评论显示区域结束-->
+                </div>
+         </div>
+         <!-- 评论编辑器结束-->
+        <!-- 左侧播放器 开始-->
+        <div id="jp_container_N" class="jp-video jp-video-270p" role="application" aria-label="media player">
+            <div class="jp-type-playlist">
+                <div id="jquery_jplayer_N"class="jp-jplayer"></div>
+                <div class="jp-gui">
+                    <div class="jp-video-play">
+                        <button class="jp-video-play-icon" role="button" tabindex="0">播放</button>
+                    </div>
+                    <div class="jp-interface">
+                        <div class="jp-progress">
+                            <div class="jp-seek-bar">
+                                <div class="jp-play-bar"></div>
+                            </div>
+                        </div>
+                        <div class="jp-current-time" role="timer" aria-label="time"></div>
+                        <div class="jp-duration" role="timer" aria-label="duration"></div>
+                        <div class="jp-controls-holder">
+                            <div class="jp-controls">
+                                <button class="jp-previous" role="button" tabindex="0">上一曲</button>
+                                <button class="jp-play" role="button" tabindex="0">播放</button>
+                                <button class="jp-next" role="button" tabindex="0">下一曲</button>
+                                <button class="jp-stop" role="button" tabindex="0">暂停</button>
+                            </div>
+                            <div class="jp-volume-controls">
+                                <button class="jp-mute" role="button" tabindex="0">静音</button>
+                                <button class="jp-volume-max" role="button" tabindex="0">最大音量</button>
+                                <div class="jp-volume-bar">
+                                    <div class="jp-volume-bar-value"></div>
+                                </div>
+                            </div>
+                            <div class="jp-toggles">
+                                <button class="jp-repeat" role="button" tabindex="0">重复</button>
+                                <button class="jp-shuffle" role="button" tabindex="0">随机</button>
+                                <!--<button class="jp-full-screen" role="button" tabindex="0">全屏</button>-->
+                            </div>
+                        </div>
+                        <div class="jp-details">
+                            <div class="jp-title" aria-label="title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jp-playlist">
+                    <div class="jp-playlist-box">
+                        <ul>
+                            <!-- 该方法使用无序列表displayplaylist()播放列表 -->
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="jp-no-solution">
+                    <span>升级需要</span>
+                    您浏览器赞不支持播放，请更新版本
+                    <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash插件</a>.
+                </div>
+            </div>
+            <!--歌曲列表滚动条-->
+            <div class="scrollBar">
+                <div class="bar"></div>
+            </div>
+            <!--播放器展开隐藏按钮-->
+            <button type="button" class="folded_bt" title="点击收缩" id="btnfold">
+                <span></span>
+            </button>
+            <div id="listRemove"></div><!--移除全部歌曲按钮-->
+            <div id="listClose"></div><!--歌曲列表展开收缩按钮-->
+        </div>
+        <!-- 左侧播放器 结束-->
+
+        <script type="text/javascript" src="../static/plugins/angularjs/angular.min.js"></script>
+        
+        <script type="text/javascript" src="../static/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script type="text/javascript" src="../static/js/index.js"></script>
+        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+        <script src="../static/js/wangEditor.min.js"></script>
+        <script type="text/javascript" src="../static/js/index.js"></script>
+        <script type="text/javascript" src="../static/js/modernizr.js"></script>
+        <script type="text/javascript" src="../static/plugins/angularjs/angular.cookie.min.js"></script>
+        <script type="text/javascript" src="../static/plugins/angularjs/angular.min.js"></script>
+        <script type="text/javascript" src="../static/js/base.js"></script>
+        <script type="text/javascript" src="../static/js/filter/musicFilter.js"></script>
+        <script type="text/javascript" src="../static/js/service/musicService.js"></script>
+        <script type="text/javascript" src="../static/js/controller/musicController.js"></script>
+        <!--播放器js-->
+        <script type="text/javascript" src="../static/js/player.js"></script>
+        <script type="text/javascript" src="../static/js/playlist.js"></script>
+        <script type="text/javascript" src="../static/js/player_database.js"></script>
+        <script type="text/javascript" src="../static/js/lrc-file-parser.min.js"></script>
+        <script>
+            var latest=[]
+            var content;
+            var E = window.wangEditor
+            var editor = new E('#editor')
+            // 或者 var editor = new E( document.getElementById('editor') )
+            editor.create()
+
+            document.getElementById('btn1').addEventListener('click', function () {
+                // 读取 html
+                content=editor.txt.html();
+            }, false)
+        </script>
+    </body>
+</html>

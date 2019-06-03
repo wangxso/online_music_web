@@ -1,0 +1,37 @@
+.panel{
+    background-color:#333333;
+}
+
+#song-img{
+    float: left;
+    height: 200px;
+    margin-left: 450px;
+}
+
+#song-name{
+    font-style: italic;
+    color: aliceblue;
+}
+
+.words{
+    font-style: italic;
+    color: aliceblue;
+}
+p{
+    font-style: normal;
+    color: aliceblue;
+}
+#lrc{
+    margin-left: 450px;
+}
+
+#comment{
+    color: aliceblue;
+}
+.list-group-item{
+    background-color: #333333;
+}
+#btn1{
+    float: right;
+    size: 50px 50px;
+}

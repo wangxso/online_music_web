@@ -1,0 +1,59 @@
+#music {
+    width: 500px;
+    height: 500px;
+    border-radius: 10px;
+    margin: 20px auto;
+    position: relative;
+    background: url("https://toside01-1251838060.cos.ap-guangzhou.myqcloud.com/lrc-file-parser%2Fbg.jpg") no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+#container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    background:rgba(255,255,255,0.6);
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+}
+body> main {
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+#audio {
+    padding: 15px 0;
+}
+#lyric {
+    padding: 100% 0;
+    color: white;
+}
+#bg {
+    background: url('https://toside01-1251838060.cos.ap-guangzhou.myqcloud.com/lrc-file-parser%2Fbg.jpg') center no-repeat;
+    background-size: 150% 150%;
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    left: -50%;
+    top: -50%;
+    z-index: -1;
+    filter: blur(65px);
+}
+#bg:after{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    content: '';
+    background-color: rgba(0,0,0,.7);
+}
