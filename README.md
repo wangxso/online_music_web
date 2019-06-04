@@ -15,7 +15,7 @@
 
 ## Where the music source come from
 
->This prohect is using the api from [mlwei](https://api.mlwei.com/)
+>This project is using the api from [mlwei](https://api.mlwei.com/)
 
 ## Develop enviroment
 * JDK 1.8
