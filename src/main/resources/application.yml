@@ -10,7 +10,7 @@ spring:
 
   mvc:
     static-path-pattern: /static/**
-  #修改默认的静态寻址资源目录
+    #修改默认的静态寻址资源目录
     resources:
       static-locations: classpath:/templates/**,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/**,classpath:/public/
     view:
@@ -27,7 +27,7 @@ spring:
       test-on-return: false
       test-while-idle: true
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/eazymusic?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/eazymusic?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
     username: root
     password: 818923
     type: com.alibaba.druid.pool.DruidDataSource

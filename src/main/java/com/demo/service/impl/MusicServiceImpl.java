@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * @author wangx
+ */
 @Service
 public class MusicServiceImpl implements MusicService {
     @Autowired
@@ -25,8 +28,7 @@ public class MusicServiceImpl implements MusicService {
      */
     @Override
     public List<Music> findAllMusic() {
-        List<Music> musicList = musicMapper.selectByExample(null);
-        return musicList;
+        return musicMapper.selectByExample(null);
     }
 
     /**
@@ -40,8 +42,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public Music findOneMusic(String musicId) {
-        Music music = musicMapper.selectByPrimaryKey(musicId);
-        return music;
+        return musicMapper.selectByPrimaryKey(musicId);
     }
 
     @Override
@@ -49,8 +50,7 @@ public class MusicServiceImpl implements MusicService {
         ListenListExample example = new ListenListExample();
         ListenListExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
-        List<ListenList> listList = listenListMapper.selectByExample(example);
-        return listList;
+        return listenListMapper.selectByExample(example);
     }
 
     @Override

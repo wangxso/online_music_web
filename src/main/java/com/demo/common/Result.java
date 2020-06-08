@@ -2,6 +2,9 @@ package com.demo.common;
 
 import lombok.Data;
 
+/**
+ * @author wangx
+ */
 @Data
 public class Result {
     private String message;

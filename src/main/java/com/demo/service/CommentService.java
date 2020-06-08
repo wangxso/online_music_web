@@ -6,7 +6,7 @@ import com.demo.pojo.Comment;
 import java.util.List;
 
 public interface CommentService {
-    public List<Comment> findOneMusicComment(String mid);
+     List<Comment> findOneMusicComment(String mid);
 
-    public Result addComment(Comment comment);
+     Result addComment(Comment comment);
 }

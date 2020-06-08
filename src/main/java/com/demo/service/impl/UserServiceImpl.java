@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+/**
+ * @author wangx
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -26,7 +29,8 @@ public class UserServiceImpl implements UserService {
         System.out.println(user.getPassword());
         user.setUserId(UUIDGenrator.getUUID());
         user.setCreateTime(new Date());
-        user.setLevel(0);//初始为0级
+        //初始为0级
+        user.setLevel(0);
         userMapper.insert(user);
         return new Result("成功",200);
     }
@@ -42,7 +46,7 @@ public class UserServiceImpl implements UserService {
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andNickNameEqualTo(user.getNickName());
         List<User> userNow = userMapper.selectByExample(example);
-        if(userNow.size()>0 && userNow!=null){
+        if(userNow.size() > 0){
             if(userNow.get(0).getPassword().equals(user.getPassword())){
                 return new Result("成功",200);
             }else{
